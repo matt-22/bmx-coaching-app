@@ -1,0 +1,44 @@
+
+<pre><code>{{ userForm().value() | json }}</code></pre>
+
+<mat-card appearance="outlined">
+    <mat-card-header>
+        <mat-card-title>Register for a new user Account</mat-card-title>
+    </mat-card-header>
+    <mat-card-content class="card-content-container">
+
+    <form [formRoot]="userForm">
+        <mat-form-field appearance="outline" class="card-content-item">
+            <mat-label>email address</mat-label>
+            <input matInput type="email" [formField]="userForm.email" />
+            @if (userForm.email().touched() && userForm.email().invalid()) {
+            @for (error of userForm.email().errors(); track error.kind) {
+            <span>{{ error.message }}</span>
+            }
+            }
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="card-content-item">
+            <mat-label>Password</mat-label>
+            <input matInput type="password" [formField]="userForm.password" />
+            @if (userForm.password().touched() && userForm.password().invalid()) {
+            @for (error of userForm.password().errors(); track error.kind) {
+            <span>{{ error.message }}</span>
+            }
+            }
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="card-content-item">
+            <mat-label>Confirm Password</mat-label>
+            <input matInput type="password" [formField]="userForm.confirmPassword" />
+            @if (userForm.confirmPassword().touched() && userForm.confirmPassword().invalid()) {
+            @for (error of userForm.confirmPassword().errors(); track error.kind) {
+            <span>{{ error.message }}</span>
+            }
+            }
+        </mat-form-field>
+
+        <button type="submit" matButton="outlined" [disabled]="userForm().invalid()">Register</button>
+    </form>
+</mat-card-content>
+</mat-card>

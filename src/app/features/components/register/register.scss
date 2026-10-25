@@ -1,0 +1,11 @@
+.card-content-container{
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+
+    max-width: 750px;
+    margin: 0 auto;
+}
+
+.card-content-item {
+    display: block;
+}
