@@ -1,0 +1,29 @@
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+}
+
+.nav-section {
+    flex: 1;
+    display: flex;
+    align-items: center;
+}
+
+.nav-left {
+    justify-content: flex-start;
+}
+
+.nav-center {
+    justify-content: center;
+    gap: 20px;
+}
+
+.nav-right {
+    justify-content: flex-end;
+}
+
+.mat-mdc-button-base {
+    margin: 10px 15px; // <top/bottom> <left/right>
+}

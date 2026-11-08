@@ -1,11 +1,16 @@
-.card-content-container{
+.card-container{
     display: grid;
     grid-template-columns: repeat(1, 1fr);
 
-    max-width: 750px;
+    max-width: 350px;
     margin: 0 auto;
 }
 
+mat-card-header {
+    
+    margin-bottom: 20px;
+
+}
 .card-content-item {
     display: block;
 }

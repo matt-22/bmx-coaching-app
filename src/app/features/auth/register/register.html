@@ -1,13 +1,13 @@
 
 <pre><code>{{ userForm().value() | json }}</code></pre>
 
-<mat-card appearance="outlined">
+<mat-card appearance="outlined" class="card-container">
     <mat-card-header>
         <mat-card-title>Register for a new user Account</mat-card-title>
     </mat-card-header>
-    <mat-card-content class="card-content-container">
+    <mat-card-content >
 
-    <form [formRoot]="userForm">
+    <form [formRoot]="userForm" (submit)="onSubmit($event)">
         <mat-form-field appearance="outline" class="card-content-item">
             <mat-label>email address</mat-label>
             <input matInput type="email" [formField]="userForm.email" />
@@ -38,7 +38,13 @@
             }
         </mat-form-field>
 
-        <button type="submit" matButton="outlined" [disabled]="userForm().invalid()">Register</button>
+        <button type="submit" matButton="outlined" [disabled]="userForm().invalid() || userForm().submitting()">
+            @if (userForm().submitting()) {
+                creating...
+            } @else {
+                Register
+            }
+        </button>
     </form>
 </mat-card-content>
 </mat-card>
