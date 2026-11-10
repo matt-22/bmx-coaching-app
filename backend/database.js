@@ -42,7 +42,7 @@ export async function createUser(email, passwordHash ) {
     const [result] = await pool.query(`
         INSERT INTO users (email, password_hash)
         VALUES (?,?)`,
-    [email, passwordHash])
+    [email.trim(), passwordHash])
     const id = result.insertId // the id of the newly created user
     return getUserById(id) // get the newly created user record and return it
             

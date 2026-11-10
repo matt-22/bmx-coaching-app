@@ -13,10 +13,23 @@ app.use(cors({
 
 
 app.post("/api/v1/users", async (req, res) => {
+    try {    
     const { email, password } = req.body
-    const passwordHash = await argon2.hash(password, {type: argon2.argon2id})
+    const passwordHash = await argon2.hash(password, {type: argon2.argon2id}) // hash the password before sending to mysql
     const user = await createUser( email, passwordHash)
     res.status(201).send(user)
+    } catch (error) {
+        if (error.code === 'ER_DUP_ENTRY') {
+            return res.status(409).json({
+                code: 'EMAIL_ALREADY_EXISTS',
+                message: "An account with this email address already exists."
+            })
+        }
+        console.error('Registration error:', error)
+        return res.status(500).json({
+            message: 'Unable to create your account.'
+        })
+    }
 })
 
 

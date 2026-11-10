@@ -7,6 +7,9 @@ import { JsonPipe } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { Registration } from './registration';
+import { Router } from '@angular/router';
+import { HttpErrorResponse } from '@angular/common/http';
+import { firstValueFrom } from 'rxjs';
 
 
 @Component({
@@ -18,19 +21,38 @@ import { Registration } from './registration';
 
 export class Register {
   private registrationService = inject(Registration)
+  private router = inject(Router)
+
+  protected readonly apiError = signal<string | null>(null)
+  protected readonly isSubmitting = signal(false)
 
   userModel = signal<User>(initialData);
 
-  userForm = form(this.userModel, userSchema); 
   // userSchema is where the client-side form field validation is defined
+  userForm = form(this.userModel, userSchema);
+
 
   protected onSubmit(event: Event) {
     event.preventDefault();  // prevent browser from doing a full page refresh
-    submit(this.userForm, async f => {
-      this.registrationService.createUser(this.userForm().value()).subscribe(item=> console.log('user created'));
-      console.log(this.userForm().value())
-    })
 
+    this.apiError.set(null)
+
+    submit(this.userForm, async f => {
+      this.isSubmitting.set(true)
+      try {
+        await firstValueFrom(
+          this.registrationService.createUser(this.userForm().value())
+        )
+      } catch (err: unknown) {
+        if (err instanceof HttpErrorResponse) {
+          if (err.status === 409 && err.error.message.includes('email address already exists')) {
+            console.log(err.error.message)
+            this.apiError.set(err.error.message)
+          }
+        }
+
+      }
+    })
 
   }
 }
