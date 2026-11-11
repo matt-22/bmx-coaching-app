@@ -1,1 +1,22 @@
-<p>login works!</p>
+
+<mat-card appearance="outlined" class="card-container">
+    <mat-card-header>
+        <mat-card-title>Log in to your account</mat-card-title>
+    </mat-card-header>
+
+    <mat-card-content>
+        <form [formRoot]="loginForm" (submit)="onSubmit($event)">
+            <mat-form-field appearance="outline" class="card-content-item">
+                <mat-label>Email</mat-label>
+                <input matInput type="email" [formField]="loginForm.email" />
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="card-content-item">
+                <mat-label>Password</mat-label>
+                <input matInput type="password" [formField]="loginForm.password" />
+            </mat-form-field>
+
+            <button type="submit" matButton="outlined" [disabled]="loginForm().invalid() || loginForm().submitting()">Login</button>
+        </form>
+    </mat-card-content>
+</mat-card>

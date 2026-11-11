@@ -12,7 +12,20 @@ const pool = mysql.createPool({
 }).promise()
 
 
-// ######################### users #########################
+// ######################### Auth ##########################
+export async function getLoginDetails(email) {
+    const [rows] = await pool.query(`
+        SELECT email, password_hash
+        FROM users
+        WHERE email = ?`,
+    [email])
+    return rows[0]
+    
+}
+
+// ####################### End Auth ########################
+
+// ######################### Users #########################
 export async function getUsers() {
     const [rows] = await pool.query("SELECT id, first_name, last_name, email, created_at  FROM users")
     return rows
@@ -36,6 +49,7 @@ export async function getUserByEmail(email) {
     [email])
     return rows[0] // returns the 1st and only object in the array, ie returns the object rather than an array
     }
+
 // #########################################################
 // create new user
 export async function createUser(email, passwordHash ) {
@@ -47,3 +61,4 @@ export async function createUser(email, passwordHash ) {
     return getUserById(id) // get the newly created user record and return it
             
 }
+// ####################### End Users #######################

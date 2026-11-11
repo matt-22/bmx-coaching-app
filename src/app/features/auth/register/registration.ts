@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Service } from '@angular/core';
-import { User } from './user';
+import { User } from '../models/register-user';
 
 
 @Service()

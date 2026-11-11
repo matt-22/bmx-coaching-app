@@ -1,0 +1,15 @@
+.card-container {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+
+    max-width: 450px;
+    margin: 0 auto;
+}
+
+mat-card-header {
+    margin-bottom: 20px;
+}
+
+.card-content-item {
+    display: block;
+}

@@ -1,7 +1,7 @@
 import { Component, inject, signal } from '@angular/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { initialData, User, userSchema } from './user';
+import { initialData, User, userSchema } from '../models/register-user';
 import { email, form, FormField, minLength, required, schema, validate, FormRoot, submit } from '@angular/forms/signals';
 import { JsonPipe } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
